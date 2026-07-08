@@ -1,0 +1,22 @@
+{
+  "name": "apilane-web",
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "postbuild": "cp _headers _redirects dist/"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^7.0.6",
+    "tailwindcss": "^4.3.2"
+  }
+}
