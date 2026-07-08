@@ -1,21 +1,21 @@
 # apilane — Affordable AI API for Coders
 
-> The cheapest way to call GPT-4o, Claude, and DeepSeek.
-> Pay per call from $2. Official prices at 1/10 to 1/60.
+> The cheapest way to call frontier AI models.
+> Pay per call from $2. Tested models at 1/10 to 1/60 of official prices.
 > Crypto accepted (USDT/BTC). No subscriptions, no hidden fees, no data storage.
 
 ## Overview
 
-apilane is a pay-per-call LLM API gateway for individual developers and small teams. It provides OpenAI-compatible endpoints for GPT-4o, Claude, DeepSeek, Gemini, Llama and other frontier models at 1/10 to 1/60 of official pricing, with crypto payment support and a $2 minimum deposit.
+apilane is a pay-per-call LLM API gateway for individual developers and small teams. We list only frontier models we have actually tested, with flat per-call pricing at 1/10 to 1/60 of official rates. Crypto payment (USDT/BTC) and a $2 minimum deposit.
 
 ## Core Services
 
-- [Pricing Comparison](https://apilane.one/pricing) — See how much you save vs official prices
-- [Model Catalog](https://apilane.one/models) — All supported models with per-model pricing
-- [Quick Start Guide](https://apilane.one/docs/quickstart) — 5-minute integration with Python, Node.js, or curl
-- [API Reference](https://apilane.one/docs/api) — Full endpoint documentation
-- [Security FAQ](https://apilane.one/security) — How we protect your data and credentials
-- [Blog](https://apilane.one/blog) — Cost optimization guides and AI API tutorials
+- [Pricing](https://apilane.one/#pricing) — Per-call prices, fetched live from the public API
+- [Features](https://apilane.one/#features) — Pay per call, crypto payment, OpenAI-compatible, no data storage
+- [FAQ](https://apilane.one/#faq) — How it works, how we keep prices low
+- [Console](https://app.apilane.one) — Sign up, get an API key, top up
+- [API Endpoint](https://api.apilane.one/v1) — OpenAI-compatible
+- [Status](https://status.apilane.one) — Live availability
 
 ## Key Differentiators
 
@@ -23,17 +23,19 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 - Crypto payment: USDT (TRC20, BSC, ERC20) and BTC via self-hosted BTCPay Server
 - 1/10 to 1/60 of official API prices, depending on the model
 - OpenAI-compatible endpoint at https://api.apilane.one/v1 — zero migration cost
+- Only tested models are listed; unstable upstreams are swapped out
 - No subscription, no lock-in, no platform fee
 - No prompt storage, no API key logging, no response modification
-- 39+ upstream adapters covering OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral, Cohere, and others
 
-## Popular Models
+## Available Models (per-call pricing)
 
-- [GPT-4o API](https://apilane.one/models/gpt-4o) — 90% cheaper than OpenAI
-- [Claude 3.5 Sonnet API](https://apilane.one/models/claude-3.5-sonnet) — 96.7% cheaper
-- [DeepSeek Chat API](https://apilane.one/models/deepseek-chat) — 96.3% cheaper
-- [Gemini 2.0 Flash API](https://apilane.one/models/gemini-2.0-flash) — Pay-per-call
-- [Llama 3.1 70B API](https://apilane.one/models/llama-3.1-70b) — Open weights, low cost
+- MiniMax-M2.7 — $0.025/call
+- MiniMax-M2.7-highspeed — $0.025/call
+- MiniMax-M3 — $0.075/call
+- kimi-k2.6 — $0.125/call
+- glm-5.2 — $0.150/call
+
+Prices are 1/100 cent per call (call_price field). Live list at https://api.apilane.one/api/pricing/public.
 
 ## Pricing Tiers
 
@@ -44,7 +46,7 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 
 ## API Compatibility
 
-The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any code that uses the official `openai` Python or Node.js SDK works with apilane by changing only the `base_url` and API key. Anthropic-format endpoints are also supported for Claude models.
+The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any code that uses the official `openai` Python or Node.js SDK works with apilane by changing only the `base_url` and API key. Anthropic-format requests are also supported.
 
 ## Use Cases
 
@@ -52,7 +54,7 @@ The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any cod
 - Bootstrapping and indie hacking
 - Cost-sensitive production workloads
 - Crypto-native teams that prefer USDT/BTC over credit cards
-- Developers who want to avoid OpenAI/Anthropic account requirements
+- Developers who want predictable per-call pricing over token math
 
 ## Trust and Privacy
 
@@ -60,17 +62,12 @@ The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any cod
 - API keys are held in memory for forwarding only, never logged or persisted
 - Responses are passed through unmodified from upstream providers
 - Self-hosted BTCPay Server means no third-party payment processor sees your data
-- Tor .onion address available for anonymous access
-
-## Comparisons
-
-- [apilane vs OpenRouter](https://apilane.one/vs/openrouter) — Lower minimum deposit, no platform fee
-- [apilane vs OpenAI direct](https://apilane.one/vs/openai) — Same models at 1/10 to 1/60 of the price
+- Origin server IP is never exposed; traffic terminates at Cloudflare Tunnel
 
 ## Status and Resources
 
 - [Status Page](https://status.apilane.one) — Real-time availability
-- [Blog](https://apilane.one/blog) — Cost optimization guides
+- [Console](https://app.apilane.one) — Sign up and get an API key
 
 ## Contact
 
