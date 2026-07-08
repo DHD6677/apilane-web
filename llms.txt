@@ -1,0 +1,82 @@
+# apilane — Affordable AI API for Coders
+
+> The cheapest way to call GPT-4o, Claude, and DeepSeek.
+> Pay per call from $2. Official prices at 1/10 to 1/60.
+> Crypto accepted (USDT/BTC). No subscriptions, no hidden fees, no data storage.
+
+## Overview
+
+apilane is a pay-per-call LLM API gateway for individual developers and small teams. It provides OpenAI-compatible endpoints for GPT-4o, Claude, DeepSeek, Gemini, Llama and other frontier models at 1/10 to 1/60 of official pricing, with crypto payment support and a $2 minimum deposit.
+
+## Core Services
+
+- [Pricing Comparison](https://apilane.one/pricing) — See how much you save vs official prices
+- [Model Catalog](https://apilane.one/models) — All supported models with per-model pricing
+- [Quick Start Guide](https://apilane.one/docs/quickstart) — 5-minute integration with Python, Node.js, or curl
+- [API Reference](https://apilane.one/docs/api) — Full endpoint documentation
+- [Security FAQ](https://apilane.one/security) — How we protect your data and credentials
+- [Blog](https://apilane.one/blog) — Cost optimization guides and AI API tutorials
+
+## Key Differentiators
+
+- $2 minimum deposit (lowest in the LLM gateway market)
+- Crypto payment: USDT (TRC20, BSC, ERC20) and BTC via self-hosted BTCPay Server
+- 1/10 to 1/60 of official API prices, depending on the model
+- OpenAI-compatible endpoint at https://api.apilane.one/v1 — zero migration cost
+- No subscription, no lock-in, no platform fee
+- No prompt storage, no API key logging, no response modification
+- 39+ upstream adapters covering OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral, Cohere, and others
+
+## Popular Models
+
+- [GPT-4o API](https://apilane.one/models/gpt-4o) — 90% cheaper than OpenAI
+- [Claude 3.5 Sonnet API](https://apilane.one/models/claude-3.5-sonnet) — 96.7% cheaper
+- [DeepSeek Chat API](https://apilane.one/models/deepseek-chat) — 96.3% cheaper
+- [Gemini 2.0 Flash API](https://apilane.one/models/gemini-2.0-flash) — Pay-per-call
+- [Llama 3.1 70B API](https://apilane.one/models/llama-3.1-70b) — Open weights, low cost
+
+## Pricing Tiers
+
+- $2 minimum deposit (test the API with real calls)
+- $5 / $10 / $20 deposit tiers
+- Payment methods: USDT (TRC20, BSC, ERC20) via epusdt, BTC via self-hosted BTCPay Server
+- No platform fee, no monthly subscription
+
+## API Compatibility
+
+The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any code that uses the official `openai` Python or Node.js SDK works with apilane by changing only the `base_url` and API key. Anthropic-format endpoints are also supported for Claude models.
+
+## Use Cases
+
+- Personal projects and side experiments
+- Bootstrapping and indie hacking
+- Cost-sensitive production workloads
+- Crypto-native teams that prefer USDT/BTC over credit cards
+- Developers who want to avoid OpenAI/Anthropic account requirements
+
+## Trust and Privacy
+
+- No prompt content is stored — requests are forwarded and discarded immediately
+- API keys are held in memory for forwarding only, never logged or persisted
+- Responses are passed through unmodified from upstream providers
+- Self-hosted BTCPay Server means no third-party payment processor sees your data
+- Tor .onion address available for anonymous access
+
+## Comparisons
+
+- [apilane vs OpenRouter](https://apilane.one/vs/openrouter) — Lower minimum deposit, no platform fee
+- [apilane vs OpenAI direct](https://apilane.one/vs/openai) — Same models at 1/10 to 1/60 of the price
+
+## Status and Resources
+
+- [Status Page](https://status.apilane.one) — Real-time availability
+- [Blog](https://apilane.one/blog) — Cost optimization guides
+
+## Contact
+
+- Support: support@apilane.one
+- GitHub: https://github.com/apilane
+
+## Last Updated
+
+2026-07-09
