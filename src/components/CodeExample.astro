@@ -1,0 +1,71 @@
+---
+const baseUrl = 'https://api.apilane.one/v1';
+
+const pythonCode = `from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk-apilane-...",
+    base_url="${baseUrl}",
+)
+
+resp = client.chat.completions.create(
+    model="MiniMax-M3",
+    messages=[{"role": "user", "content": "Say hi in one word."}],
+)
+print(resp.choices[0].message.content)`;
+
+const curlCode = `curl ${baseUrl}/chat/completions \\
+  -H "Authorization: Bearer sk-apilane-..." \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "MiniMax-M3",
+    "messages": [{"role": "user", "content": "Say hi in one word."}]
+  }'`;
+---
+
+<section class="border-y border-zinc-800/80 bg-zinc-900/30">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Two minutes to your first call</h2>
+      <p class="mt-3 text-zinc-400">OpenAI-compatible. If your code already calls OpenAI, you're done.</p>
+    </div>
+
+    <div class="mx-auto max-w-3xl rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden">
+      <div class="flex items-center justify-between border-b border-zinc-800 px-4">
+        <div class="flex gap-1">
+          <button data-tab="python" class="code-tab px-4 py-3 text-sm font-medium text-zinc-100 border-b-2 border-emerald-400">Python</button>
+          <button data-tab="curl" class="code-tab px-4 py-3 text-sm font-medium text-zinc-500 border-b-2 border-transparent hover:text-zinc-300">curl</button>
+        </div>
+        <span class="text-xs text-zinc-600">base_url: {baseUrl}</span>
+      </div>
+
+      <div data-code="python" class="p-5 overflow-x-auto">
+        <pre class="text-sm font-mono leading-relaxed text-zinc-300"><code set:html={pythonCode}></code></pre>
+      </div>
+
+      <div data-code="curl" class="hidden p-5 overflow-x-auto">
+        <pre class="text-sm font-mono leading-relaxed text-zinc-300"><code set:html={curlCode}></code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll('.code-tab');
+  const panels = document.querySelectorAll('[data-code]');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('text-zinc-100', active);
+        t.classList.toggle('text-zinc-500', !active);
+        t.classList.toggle('border-emerald-400', active);
+        t.classList.toggle('border-transparent', !active);
+      });
+      panels.forEach((p) => {
+        p.classList.toggle('hidden', p.getAttribute('data-code') !== target);
+      });
+    });
+  });
+</script>

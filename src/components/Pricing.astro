@@ -1,0 +1,101 @@
+---
+// Static fallback: REAL prices from /api/pricing/public (snapshot 2026-07-09).
+// Used at build time and as fallback if the live fetch fails.
+const fallback = [
+  { model_name: 'MiniMax-M2.7', call_price: 250 },
+  { model_name: 'MiniMax-M2.7-highspeed', call_price: 250 },
+  { model_name: 'MiniMax-M3', call_price: 750 },
+  { model_name: 'kimi-k2.6', call_price: 1250 },
+  { model_name: 'glm-5.2', call_price: 1500 }
+];
+
+const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
+---
+
+<section id="pricing" class="scroll-mt-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Pay per call, not per token</h2>
+      <p class="mt-3 text-zinc-400 max-w-2xl mx-auto">
+        Predictable flat pricing per API call. No token math, no surprise bills. Prices fetched live from the public API.
+      </p>
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40">
+      <table class="w-full text-left">
+        <thead class="border-b border-zinc-800 bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-500">
+          <tr>
+            <th class="px-4 sm:px-6 py-3 font-medium">Model</th>
+            <th class="px-4 sm:px-6 py-3 font-medium text-right">Price per call</th>
+          </tr>
+        </thead>
+        <tbody id="pricing-body" class="divide-y divide-zinc-800/80">
+          {fallback.map((m) => (
+            <tr class="hover:bg-zinc-900/60">
+              <td class="px-4 sm:px-6 py-3 font-mono text-sm text-zinc-200">{m.model_name}</td>
+              <td class="px-4 sm:px-6 py-3 text-right text-sm font-semibold text-emerald-400">{fmt(m.call_price)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4 flex items-center justify-between text-xs text-zinc-500">
+      <span>call_price unit: 1/100 cent. 250 = $0.025/call.</span>
+      <span id="pricing-status" class="inline-flex items-center gap-1.5">
+        <span class="h-1.5 w-1.5 rounded-full bg-zinc-600"></span>
+        loading…
+      </span>
+    </div>
+
+    <p class="mt-8 text-center text-sm text-zinc-500">
+      Want token-based models (GPT-4o, Claude, Gemini)? They're available in the console with the same OpenAI-compatible endpoint.
+    </p>
+  </div>
+</section>
+
+<script>
+  const tbody = document.getElementById('pricing-body');
+  const status = document.getElementById('pricing-status');
+  const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
+
+  const render = (rows) => {
+    if (!tbody) return;
+    tbody.innerHTML = rows
+      .map(
+        (m) =>
+          `<tr class="hover:bg-zinc-900/60"><td class="px-4 sm:px-6 py-3 font-mono text-sm text-zinc-200">${m.model_name}</td><td class="px-4 sm:px-6 py-3 text-right text-sm font-semibold text-emerald-400">${fmt(m.call_price)}</td></tr>`
+      )
+      .join('');
+  };
+
+  const markLive = () => {
+    if (!status) return;
+    status.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>live';
+  };
+  const markFallback = () => {
+    if (!status) return;
+    status.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>offline — showing snapshot';
+  };
+
+  try {
+    fetch('https://api.apilane.one/api/pricing/public')
+      .then((r) => r.json())
+      .then((data) => {
+        const rows = (data && Array.isArray(data.data) ? data.data : []).filter(
+          (m) => m && typeof m.model_name === 'string' && typeof m.call_price === 'number'
+        );
+        if (rows.length > 0) {
+          render(rows);
+          markLive();
+        } else {
+          markFallback();
+        }
+      })
+      .catch(() => {
+        markFallback();
+      });
+  } catch {
+    markFallback();
+  }
+</script>

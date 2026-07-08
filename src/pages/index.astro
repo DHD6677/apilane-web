@@ -1,32 +1,31 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Pricing from '../components/Pricing.astro';
+import Features from '../components/Features.astro';
+import CodeExample from '../components/CodeExample.astro';
+import Trust from '../components/Trust.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import Footer from '../components/Footer.astro';
 
 const title = 'apilane — Affordable AI API';
-const description = 'The cheapest way to call GPT-4o, Claude, and DeepSeek. Pay per call from $2. Crypto accepted. OpenAI-compatible, no subscription.';
-const canonical = 'https://apilane.one/';
+const description = 'The cheapest way to call GPT-4o, Claude, and DeepSeek. Pay per call from $2. Crypto accepted. OpenAI-compatible.';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
-    <meta name="generator" content={Astro.generator} />
-  </head>
-  <body>
-    <main>
-      <h1>apilane — Affordable AI API</h1>
-      <p>The cheapest way to call GPT-4o, Claude, and DeepSeek.</p>
-      <p>Pay per call from $2. Crypto accepted.</p>
-      <p>Full landing page coming soon.</p>
-      <p>Read our <a href="/llms.txt">llms.txt</a> for a structured overview.</p>
-    </main>
-  </body>
-</html>
+<Layout title={title} description={description}>
+  <Nav />
+  <main class="flex-1">
+    <Hero />
+    <Stats />
+    <Pricing />
+    <Features />
+    <CodeExample />
+    <Trust />
+    <FAQ />
+    <FinalCTA />
+  </main>
+  <Footer />
+</Layout>
