@@ -13,7 +13,7 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 - [Pricing](https://apilane.one/#pricing) — Per-call prices, fetched live from the public API
 - [Features](https://apilane.one/#features) — Pay per call, crypto payment, OpenAI-compatible, no data storage
 - [FAQ](https://apilane.one/#faq) — How it works, how we keep prices low
-- [Console](https://app.apilane.one) — Sign up, get an API key, top up
+- [Console](https://api.apilane.one) - Sign up, get an API key, top up
 - [API Endpoint](https://api.apilane.one/v1) — OpenAI-compatible
 - [Status](https://status.apilane.one) — Live availability
 
@@ -67,7 +67,7 @@ The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any cod
 ## Status and Resources
 
 - [Status Page](https://status.apilane.one) — Real-time availability
-- [Console](https://app.apilane.one) — Sign up and get an API key
+- [Console](https://api.apilane.one) - Sign up and get an API key
 
 ## Contact
 
