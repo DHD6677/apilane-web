@@ -2,7 +2,7 @@
 
 > Affordable AI models, pay per call.
 > Tested models at 1/10 to 1/60 of official prices. $2 minimum deposit.
-> Crypto accepted (USDT TRC20/BSC). No subscriptions, no hidden fees, no data storage.
+> Crypto accepted (USDT TRC20/BSC). No subscriptions, no hidden fees.
 
 ## Overview
 
@@ -11,7 +11,7 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 ## Core Services
 
 - [Pricing](https://apilane.one/en/#pricing) — Per-call prices, fetched live from the public API
-- [Features](https://apilane.one/en/#features) — Pay per call, crypto payment, OpenAI-compatible, no data storage
+- [Features](https://apilane.one/en/#features) - Pay per call, crypto payment, OpenAI-compatible
 - [FAQ](https://apilane.one/en/#faq) — How it works, how we keep prices low
 - [Console](https://api.apilane.one) - Sign up, get an API key, top up
 - [API Endpoint](https://api.apilane.one/v1) — OpenAI-compatible
@@ -25,7 +25,8 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 - OpenAI-compatible endpoint at https://api.apilane.one/v1 — zero migration cost
 - Only tested models are listed; unstable upstreams are swapped out
 - No subscription, no lock-in, no platform fee
-- No prompt storage, no API key logging, no response modification
+- API keys held in memory for routing only, never written to disk or logs
+- Responses passed through unmodified from upstream providers
 
 ## Available Models (per-call pricing)
 
@@ -58,10 +59,11 @@ The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any cod
 
 ## Trust and Privacy
 
-- No prompt content is stored — requests are forwarded and discarded immediately
-- API keys are held in memory for forwarding only, never logged or persisted
-- Responses are passed through unmodified from upstream providers
+## Trust and Privacy
 
+- API keys are held in memory for routing only, never logged or persisted
+- Responses are passed through unmodified from upstream providers
+- Note: apilane is a gateway. Requests are forwarded to upstream model providers; we do not control whether those providers retain prompt data.
 ## Status and Resources
 
 - [Status Page](https://status.apilane.one) — Real-time availability
