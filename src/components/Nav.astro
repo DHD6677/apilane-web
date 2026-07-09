@@ -1,15 +1,17 @@
 ---
 import { useTranslations, localePath, type Locale } from '../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import Logo from './Logo.astro';
 
 interface Props {
   locale: Locale;
   path?: string;
+  showAnchors?: boolean;
 }
 
-const { locale, path = '' } = Astro.props;
+const { locale, path = '', showAnchors = false } = Astro.props;
 const t = useTranslations(locale);
-const appUrl = 'https://api.apilane.one';
+const appUrl = 'https://api.apilane.one/login';
 const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
 const modelsHref = localePath(locale, 'models');
 ---
@@ -18,14 +20,18 @@ const modelsHref = localePath(locale, 'models');
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="flex h-16 items-center justify-between">
       <a href={localePath(locale)} class="flex items-center gap-2 text-zinc-100 font-semibold tracking-tight">
-        <span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500 text-zinc-950 font-bold text-sm">a</span>
+        <Logo size={28} />
         <span class="text-lg">apilane</span>
       </a>
       <div class="flex items-center gap-3 sm:gap-6">
         <a href={modelsHref} class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.models')}</a>
-        <a href="#pricing" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
-        <a href="#features" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.features')}</a>
-        <a href="#faq" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.faq')}</a>
+        {showAnchors && (
+          <>
+            <a href="#pricing" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
+            <a href="#features" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.features')}</a>
+            <a href="#faq" class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.faq')}</a>
+          </>
+        )}
         <LanguageSwitcher locale={locale} path={clean} />
         <a href={appUrl} class="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors">
           {t('nav.signin')}

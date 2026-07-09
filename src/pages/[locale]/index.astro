@@ -24,7 +24,7 @@ const description = t('hero.subtitle');
 ---
 
 <Layout title={title} description={description} locale={locale} path="">
-  <Nav locale={locale} />
+  <Nav locale={locale} showAnchors={true} />
   <main class="flex-1">
     <Hero locale={locale} />
     <Stats locale={locale} />
@@ -35,5 +35,5 @@ const description = t('hero.subtitle');
     <FAQ locale={locale} />
     <FinalCTA locale={locale} />
   </main>
-  <Footer locale={locale} />
+  <Footer locale={locale} showAnchors={true} />
 </Layout>
