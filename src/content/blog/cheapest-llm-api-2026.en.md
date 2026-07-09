@@ -6,6 +6,8 @@ description: "A practical, numbers-first look at how to find the cheapest LLM AP
 pubDate: 2026-07-09
 readingMinutes: 7
 category: "Cost optimization"
+heroImage: "/images/blog/cheapest-llm-api-2026-hero.png"
+ogImage: "/images/blog/cheapest-llm-api-2026-hero.png"
 faq:
   - question: "Is per-call pricing always cheaper than per-token?"
     answer: "No. Per-call favors short, frequent requests (chat, classification, agent loops). If your average request is a very long document, per-token can win. Measure your average prompt length before deciding."

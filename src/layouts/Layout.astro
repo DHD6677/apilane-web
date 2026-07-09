@@ -7,13 +7,15 @@ interface Props {
   description: string;
   locale: Locale;
   path?: string;
+  ogImage?: string;
 }
 
-const { title, description, locale, path = '' } = Astro.props;
+const { title, description, locale, path = '', ogImage } = Astro.props;
 const htmlLang = localeHtmlLang[locale];
 const site = Astro.site ?? new URL('https://apilane.one');
 const canonical = new URL(localePath(locale, path) + '/', site).toString();
 const alternates = getAlternates(site, Astro.url.pathname, path);
+const ogImageUrl = ogImage ? new URL(ogImage, site).toString() : undefined;
 ---
 
 <!doctype html>
@@ -31,7 +33,9 @@ const alternates = getAlternates(site, Astro.url.pathname, path);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="generator" content={Astro.generator} />
