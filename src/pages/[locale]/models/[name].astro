@@ -1,22 +1,32 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
-import { getModels, fmtUsd, fmtContext, type ModelInfo } from '../../data/models';
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import { getModels, fmtUsd, fmtContext, type ModelInfo } from '../../../data/models';
+import { locales, useTranslations, localePath, type Locale } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
-  const models = await getModels();
-  return models.map((m) => ({
-    params: { name: m.slug },
-    props: { model: m }
-  }));
+  const paths = [];
+  for (const locale of locales) {
+    const models = await getModels(locale);
+    for (const model of models) {
+      paths.push({
+        params: { locale, name: model.slug },
+        props: { model, locale }
+      });
+    }
+  }
+  return paths;
 }
 
-interface Props { model: ModelInfo }
-const { model } = Astro.props;
+interface Props { model: ModelInfo; locale: Locale }
+const { model, locale } = Astro.props;
+const t = useTranslations(locale);
 const baseUrl = 'https://api.apilane.one/v1';
-const title = `${model.name} API - ${fmtUsd(model.usdPerCall)} | apilane`;
-const description = `${model.name} from ${model.vendor}. ${model.blurb} Flat per-call pricing, OpenAI-compatible endpoint.`;
+const modelsHref = localePath(locale, 'models');
+const backHref = localePath(locale, 'models');
+const title = `${model.name} ${t('detail.title_suffix')} - ${fmtUsd(model.usdPerCall)} | apilane`;
+const description = `${model.name} from ${model.vendor}. ${model.blurb} ${t('detail.per_call')}.`;
 
 const curlCode = `curl ${baseUrl}/chat/completions \\
   -H "Authorization: Bearer sk-apilane-..." \\
@@ -40,13 +50,13 @@ resp = client.chat.completions.create(
 print(resp.choices[0].message.content)`;
 ---
 
-<Layout title={title} description={description}>
-  <Nav />
+<Layout title={title} description={description} locale={locale} path={`models/${model.slug}`}>
+  <Nav locale={locale} path={`models/${model.slug}`} />
   <main class="flex-1">
     <section class="mx-auto max-w-4xl px-4 sm:px-6 py-12">
-      <a href="/models" class="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-6">
+      <a href={backHref} class="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-6">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-        All models
+        {t('detail.back')}
       </a>
 
       <div class="flex flex-wrap items-start justify-between gap-4">
@@ -56,7 +66,7 @@ print(resp.choices[0].message.content)`;
         </div>
         <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-right">
           <div class="text-2xl font-bold text-emerald-400">{fmtUsd(model.usdPerCall)}</div>
-          <div class="text-xs text-zinc-500">flat, per call</div>
+          <div class="text-xs text-zinc-500">{t('detail.flat_per_call')}</div>
         </div>
       </div>
 
@@ -64,29 +74,29 @@ print(resp.choices[0].message.content)`;
 
       <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-          <div class="text-xs text-zinc-500">Context</div>
-          <div class="mt-1 font-semibold text-zinc-200">{fmtContext(model.contextLength)} tokens</div>
+          <div class="text-xs text-zinc-500">{t('detail.ctx')}</div>
+          <div class="mt-1 font-semibold text-zinc-200">{fmtContext(model.contextLength)} {t('detail.ctx_unit')}</div>
         </div>
         <div class="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-          <div class="text-xs text-zinc-500">Pricing</div>
-          <div class="mt-1 font-semibold text-zinc-200">per call</div>
+          <div class="text-xs text-zinc-500">{t('detail.pricing')}</div>
+          <div class="mt-1 font-semibold text-zinc-200">{t('detail.per_call')}</div>
         </div>
         <div class="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-          <div class="text-xs text-zinc-500">Protocols</div>
+          <div class="text-xs text-zinc-500">{t('detail.protocols')}</div>
           <div class="mt-1 font-semibold text-zinc-200">{model.formats.join(' / ')}</div>
         </div>
         <div class="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-          <div class="text-xs text-zinc-500">call_price</div>
+          <div class="text-xs text-zinc-500">{t('detail.call_price')}</div>
           <div class="mt-1 font-semibold text-zinc-200">{model.call_price}</div>
         </div>
       </div>
 
       <div class="mt-10">
-        <h2 class="text-lg font-semibold text-zinc-100 mb-4">Quick start</h2>
+        <h2 class="text-lg font-semibold text-zinc-100 mb-4">{t('detail.quick_start')}</h2>
         <div class="rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden">
           <div class="flex gap-1 border-b border-zinc-800 px-4">
-            <button data-tab="python" class="dt-tab px-4 py-3 text-sm font-medium text-zinc-100 border-b-2 border-emerald-400">Python</button>
-            <button data-tab="curl" class="dt-tab px-4 py-3 text-sm font-medium text-zinc-500 border-b-2 border-transparent hover:text-zinc-300">curl</button>
+            <button data-tab="python" class="dt-tab px-4 py-3 text-sm font-medium text-zinc-100 border-b-2 border-emerald-400">{t('code.python')}</button>
+            <button data-tab="curl" class="dt-tab px-4 py-3 text-sm font-medium text-zinc-500 border-b-2 border-transparent hover:text-zinc-300">{t('code.curl')}</button>
           </div>
           <div data-code="python" class="p-5 overflow-x-auto">
             <pre class="text-sm font-mono leading-relaxed text-zinc-300"><code set:html={pythonCode}></code></pre>
@@ -98,12 +108,12 @@ print(resp.choices[0].message.content)`;
       </div>
 
       <div class="mt-8 flex flex-wrap gap-3">
-        <a href="https://api.apilane.one/register" class="inline-flex items-center justify-center rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">Get API key</a>
-        <a href="/models" class="inline-flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors">Compare models</a>
+        <a href="https://api.apilane.one/register" class="inline-flex items-center justify-center rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">{t('detail.get_key')}</a>
+        <a href={modelsHref} class="inline-flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors">{t('detail.compare')}</a>
       </div>
     </section>
   </main>
-  <Footer />
+  <Footer locale={locale} />
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',

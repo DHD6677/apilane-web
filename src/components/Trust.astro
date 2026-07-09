@@ -1,33 +1,23 @@
 ---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const points = [
-  {
-    title: 'No prompt storage',
-    desc: 'Requests are forwarded to upstream and discarded immediately. We never store your prompt content.'
-  },
-  {
-    title: 'API keys stay in memory',
-    desc: 'Your key is loaded for routing and never written to disk or logs. Rotate anytime from the console.'
-  },
-  {
-    title: 'Self-hosted BTCPay',
-    desc: 'Crypto payments run on our own BTCPay Server. No third-party processor ever sees your transaction.'
-  },
-  {
-    title: 'Responses passed through unmodified',
-    desc: 'We do not rewrite, filter, or inspect model responses. What the model returns is what you get.'
-  },
-  {
-    title: 'Origin IP never exposed',
-    desc: 'Traffic terminates at Cloudflare Tunnel; our origin server IP is never published. DDoS protection and CDN come standard.'
-  }
+  { title: t('trust.t1_title'), desc: t('trust.t1_desc') },
+  { title: t('trust.t2_title'), desc: t('trust.t2_desc') },
+  { title: t('trust.t3_title'), desc: t('trust.t3_desc') },
+  { title: t('trust.t4_title'), desc: t('trust.t4_desc') },
+  { title: t('trust.t5_title'), desc: t('trust.t5_desc') }
 ];
 ---
 
 <section id="trust" class="scroll-mt-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
     <div class="text-center mb-12">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Trust &amp; security</h2>
-      <p class="mt-3 text-zinc-400">Cheap doesn't have to mean shady. Here's exactly what we do and don't do with your data.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">{t('trust.title')}</h2>
+      <p class="mt-3 text-zinc-400">{t('trust.subtitle')}</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {points.map((p) => (

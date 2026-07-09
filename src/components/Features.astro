@@ -1,37 +1,24 @@
 ---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const features = [
-  {
-    title: 'Pay per call',
-    desc: 'Flat price per request. No token-counting, no surprise bills. Idle months cost nothing.'
-  },
-  {
-    title: 'Crypto payment',
-    desc: 'USDT (TRC20, BSC, ERC20) via epusdt and BTC via self-hosted BTCPay. No credit card required.'
-  },
-  {
-    title: 'OpenAI-compatible',
-    desc: "Point your existing SDK's base_url at api.apilane.one/v1. Zero migration cost, works with the openai Python/Node SDKs."
-  },
-  {
-    title: 'No data storage',
-    desc: "Prompts are forwarded and discarded. API keys live in memory for routing only — never logged, never persisted."
-  },
-  {
-    title: 'No subscription',
-    desc: 'No monthly fee, no platform fee, no lock-in. Deposit $2, call until it runs out, top up when you need more.'
-  },
-  {
-    title: 'Multi-format adapters',
-    desc: 'OpenAI and Anthropic request formats both supported. One endpoint, every model, your preferred schema.'
-  }
+  { title: t('features.f1_title'), desc: t('features.f1_desc') },
+  { title: t('features.f2_title'), desc: t('features.f2_desc') },
+  { title: t('features.f3_title'), desc: t('features.f3_desc') },
+  { title: t('features.f4_title'), desc: t('features.f4_desc') },
+  { title: t('features.f5_title'), desc: t('features.f5_desc') },
+  { title: t('features.f6_title'), desc: t('features.f6_desc') }
 ];
 ---
 
 <section id="features" class="scroll-mt-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
     <div class="text-center mb-12">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Built for cost-sensitive builders</h2>
-      <p class="mt-3 text-zinc-400">Everything you need to ship. Nothing you don't.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">{t('features.title')}</h2>
+      <p class="mt-3 text-zinc-400">{t('features.subtitle')}</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {features.map((f) => (

@@ -1,23 +1,30 @@
 ---
+import { useTranslations, localePath, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const year = new Date().getFullYear();
+const modelsHref = localePath(locale, 'models');
 ---
 
 <footer class="border-t border-zinc-800/80 bg-zinc-950">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-10">
     <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-      <a href="/" class="flex items-center gap-2 text-zinc-100 font-semibold">
+      <a href={localePath(locale)} class="flex items-center gap-2 text-zinc-100 font-semibold">
         <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500 text-zinc-950 font-bold text-xs">a</span>
         apilane
       </a>
       <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-400">
-        <a href="#pricing" class="hover:text-zinc-100 transition-colors">Pricing</a>
-        <a href="#features" class="hover:text-zinc-100 transition-colors">Features</a>
-        <a href="#faq" class="hover:text-zinc-100 transition-colors">FAQ</a>
-        <a href="https://api.apilane.one" class="hover:text-zinc-100 transition-colors">Console</a>
-        <a href="https://status.apilane.one" class="hover:text-zinc-100 transition-colors">Status</a>
+        <a href={modelsHref} class="hover:text-zinc-100 transition-colors">{t('nav.models')}</a>
+        <a href="#pricing" class="hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
+        <a href="#features" class="hover:text-zinc-100 transition-colors">{t('nav.features')}</a>
+        <a href="#faq" class="hover:text-zinc-100 transition-colors">{t('nav.faq')}</a>
+        <a href="https://api.apilane.one" class="hover:text-zinc-100 transition-colors">{t('footer.console')}</a>
+        <a href="https://status.apilane.one" class="hover:text-zinc-100 transition-colors">{t('footer.status')}</a>
         <a href="https://github.com/apilane" class="hover:text-zinc-100 transition-colors">GitHub</a>
       </nav>
     </div>
-    <p class="mt-8 text-center text-xs text-zinc-600">© {year} apilane. Pay per call. Crypto accepted.</p>
+    <p class="mt-8 text-center text-xs text-zinc-600">© {year} apilane. {t('footer.copyright')}</p>
   </div>
 </footer>

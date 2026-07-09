@@ -1,23 +1,32 @@
 ---
 import '../styles/global.css';
+import { localeHtmlLang, getAlternates, localePath, type Locale } from '../i18n/utils';
 
 interface Props {
   title: string;
   description: string;
+  locale: Locale;
+  path?: string;
 }
 
-const { title, description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const { title, description, locale, path = '' } = Astro.props;
+const htmlLang = localeHtmlLang[locale];
+const site = Astro.site ?? new URL('https://apilane.one');
+const canonical = new URL(localePath(locale, path) + '/', site).toString();
+const alternates = getAlternates(site, Astro.url.pathname, path);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={htmlLang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

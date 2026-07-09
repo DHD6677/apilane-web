@@ -1,14 +1,19 @@
 ---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const registerUrl = 'https://api.apilane.one/register';
 ---
 
 <section class="relative overflow-hidden">
   <div class="absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_50%_50%,rgba(16,185,129,0.15),transparent)]"></div>
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-24 text-center">
-    <h2 class="text-4xl sm:text-6xl font-bold tracking-tight text-zinc-50">Start building for $2</h2>
-    <p class="mx-auto mt-4 max-w-xl text-lg text-zinc-400">Deposit two dollars. Make real API calls. No subscription, no credit card.</p>
+    <h2 class="text-4xl sm:text-6xl font-bold tracking-tight text-zinc-50">{t('finalcta.title')}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-zinc-400">{t('finalcta.subtitle')}</p>
     <a href={registerUrl} class="mt-8 inline-flex items-center justify-center rounded-md bg-emerald-500 px-8 py-3.5 text-base font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">
-      Get your API key
+      {t('finalcta.cta')}
     </a>
   </div>
 </section>

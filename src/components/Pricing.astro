@@ -1,6 +1,10 @@
 ---
-// Static fallback: REAL prices from /api/pricing/public (snapshot 2026-07-09).
-// Used at build time and as fallback if the live fetch fails.
+import { useTranslations, localePath, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
 const fallback = [
   { model_name: 'MiniMax-M2.7', call_price: 250 },
   { model_name: 'MiniMax-M2.7-highspeed', call_price: 250 },
@@ -10,14 +14,19 @@ const fallback = [
 ];
 
 const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
+const modelsHref = localePath(locale, 'models');
+const i18nStatus = JSON.stringify({
+  live: t('pricing.status_live'),
+  offline: t('pricing.status_offline')
+});
 ---
 
 <section id="pricing" class="scroll-mt-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
     <div class="text-center mb-10">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Pay per call, not per token</h2>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">{t('pricing.title')}</h2>
       <p class="mt-3 text-zinc-400 max-w-2xl mx-auto">
-        Predictable flat pricing per API call. No token math, no surprise bills. Prices fetched live from the public API.
+        {t('pricing.subtitle')}
       </p>
     </div>
 
@@ -25,8 +34,8 @@ const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
       <table class="w-full text-left">
         <thead class="border-b border-zinc-800 bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-500">
           <tr>
-            <th class="px-4 sm:px-6 py-3 font-medium">Model</th>
-            <th class="px-4 sm:px-6 py-3 font-medium text-right">Price per call</th>
+            <th class="px-4 sm:px-6 py-3 font-medium">{t('pricing.col_model')}</th>
+            <th class="px-4 sm:px-6 py-3 font-medium text-right">{t('pricing.col_price')}</th>
           </tr>
         </thead>
         <tbody id="pricing-body" class="divide-y divide-zinc-800/80">
@@ -41,29 +50,29 @@ const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
     </div>
 
     <div class="mt-4 flex items-center justify-between text-xs text-zinc-500">
-      <span>call_price unit: quota. 500,000 quota = $1, so 250 = $0.0005/call.</span>
-      <span id="pricing-status" class="inline-flex items-center gap-1.5">
+      <span>{t('pricing.unit_note')}</span>
+      <span id="pricing-status" class="inline-flex items-center gap-1.5" data-i18n={i18nStatus}>
         <span class="h-1.5 w-1.5 rounded-full bg-zinc-600"></span>
-        loading…
+        {t('pricing.status_loading')}
       </span>
     </div>
 
     <p class="mt-8 text-center text-sm text-zinc-500 max-w-2xl mx-auto">
-      Only models we've actually tested are listed here. If an upstream provider becomes unstable, we swap it out — that's part of how prices stay this low.
+      {t('pricing.note')}
     </p>
     <p class="mt-4 text-center">
-      <a href="/models" class="inline-flex items-center gap-1 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
-        Browse all models
+      <a href={modelsHref} class="inline-flex items-center gap-1 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
+        {t('pricing.browse_all')}
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
     </p>
   </div>
 </section>
 
-<script>
+<script define:vars={{ i18nStatus }}>
   const tbody = document.getElementById('pricing-body');
   const status = document.getElementById('pricing-status');
-  const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
+  const fmt = (p) => `$${(p / 500000).toFixed(5)}/call`;
 
   const render = (rows) => {
     if (!tbody) return;
@@ -77,11 +86,11 @@ const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
 
   const markLive = () => {
     if (!status) return;
-    status.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>live';
+    status.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>${i18nStatus.live}`;
   };
   const markFallback = () => {
     if (!status) return;
-    status.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>offline — showing snapshot';
+    status.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>${i18nStatus.offline}`;
   };
 
   try {

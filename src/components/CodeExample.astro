@@ -1,4 +1,9 @@
 ---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const baseUrl = 'https://api.apilane.one/v1';
 
 const pythonCode = `from openai import OpenAI
@@ -26,15 +31,15 @@ const curlCode = `curl ${baseUrl}/chat/completions \\
 <section class="border-y border-zinc-800/80 bg-zinc-900/30">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20">
     <div class="text-center mb-10">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">Two minutes to your first call</h2>
-      <p class="mt-3 text-zinc-400">OpenAI-compatible. If your code already calls OpenAI, you're done.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">{t('code.title')}</h2>
+      <p class="mt-3 text-zinc-400">{t('code.subtitle')}</p>
     </div>
 
     <div class="mx-auto max-w-3xl rounded-xl border border-zinc-800 bg-zinc-950 overflow-hidden">
       <div class="flex items-center justify-between border-b border-zinc-800 px-4">
         <div class="flex gap-1">
-          <button data-tab="python" class="code-tab px-4 py-3 text-sm font-medium text-zinc-100 border-b-2 border-emerald-400">Python</button>
-          <button data-tab="curl" class="code-tab px-4 py-3 text-sm font-medium text-zinc-500 border-b-2 border-transparent hover:text-zinc-300">curl</button>
+          <button data-tab="python" class="code-tab px-4 py-3 text-sm font-medium text-zinc-100 border-b-2 border-emerald-400">{t('code.python')}</button>
+          <button data-tab="curl" class="code-tab px-4 py-3 text-sm font-medium text-zinc-500 border-b-2 border-transparent hover:text-zinc-300">{t('code.curl')}</button>
         </div>
         <span class="text-xs text-zinc-600">base_url: {baseUrl}</span>
       </div>

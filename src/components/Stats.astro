@@ -1,9 +1,14 @@
 ---
+import { useTranslations, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const stats = [
-  { value: '5', label: 'tested models' },
-  { value: '1/10–1/60', label: 'of official price' },
-  { value: '$2', label: 'minimum deposit' },
-  { value: '0', label: 'prompt storage' }
+  { value: '5', label: t('stats.tested_models') },
+  { value: '1/10–1/60', label: t('stats.official_price') },
+  { value: '$2', label: t('stats.min_deposit') },
+  { value: '0', label: t('stats.prompt_storage') }
 ];
 ---
 

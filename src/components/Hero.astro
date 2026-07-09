@@ -1,4 +1,9 @@
 ---
+import { useTranslations, localePath, type Locale } from '../i18n/utils';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const registerUrl = 'https://api.apilane.one/register';
 ---
 
@@ -7,24 +12,24 @@ const registerUrl = 'https://api.apilane.one/register';
   <div class="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28 text-center">
     <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-400">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-      Pay per call · Crypto accepted · No subscription
+      {t('hero.badge')}
     </div>
     <h1 class="mx-auto max-w-3xl text-4xl sm:text-6xl font-bold tracking-tight text-zinc-50 leading-[1.1]">
-      The cheapest way to call <span class="text-emerald-400">frontier AI models</span>
+      {t('hero.title_before')}<span class="text-emerald-400">{t('hero.title_highlight')}</span>{t('hero.title_after')}
     </h1>
     <p class="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-zinc-400">
-      Tested models, pay per call from $2. Crypto accepted. OpenAI-compatible — change your <code class="rounded bg-zinc-800 px-1.5 py-0.5 text-sm text-emerald-300">base_url</code> and ship.
+      {t('hero.subtitle')}
     </p>
     <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
       <a href={registerUrl} class="inline-flex w-full sm:w-auto items-center justify-center rounded-md bg-emerald-500 px-6 py-3 text-base font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">
-        Get API key
+        {t('hero.cta_primary')}
       </a>
       <a href="#pricing" class="inline-flex w-full sm:w-auto items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 px-6 py-3 text-base font-semibold text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors">
-        View pricing
+        {t('hero.cta_secondary')}
       </a>
     </div>
     <p class="mt-6 text-sm text-zinc-500">
-      Official prices at 1/10 to 1/60 · $2 / $5 / $10 / $20 tiers · USDT (TRC20/BSC/ERC20) + BTC
+      {t('hero.note')}
     </p>
   </div>
 </section>

@@ -1,6 +1,8 @@
+import { t, type Locale, type TranslationKey } from '../i18n/utils';
+
 export interface ModelMeta {
   vendor: string;
-  blurb: string;
+  blurbKey: TranslationKey;
   contextLength: number;
 }
 
@@ -18,27 +20,27 @@ export interface ModelInfo {
 const META: Record<string, ModelMeta> = {
   'MiniMax-M2.7': {
     vendor: 'MiniMax',
-    blurb: 'Cost-efficient general-purpose model from MiniMax. Good for chat and lightweight tasks.',
+    blurbKey: 'models.blurb.minimax-m2-7',
     contextLength: 204800
   },
   'MiniMax-M2.7-highspeed': {
     vendor: 'MiniMax',
-    blurb: 'High-speed variant of MiniMax M2.7 with lower latency, same capability.',
+    blurbKey: 'models.blurb.minimax-m2-7-highspeed',
     contextLength: 204800
   },
   'MiniMax-M3': {
     vendor: 'MiniMax',
-    blurb: 'MiniMax flagship model. Stronger reasoning and coding for harder tasks.',
+    blurbKey: 'models.blurb.minimax-m3',
     contextLength: 1048576
   },
   'kimi-k2.6': {
     vendor: 'Moonshot AI',
-    blurb: 'Kimi K2.6 from Moonshot AI. Long-context model good for document-heavy workflows.',
+    blurbKey: 'models.blurb.kimi-k2-6',
     contextLength: 262144
   },
   'glm-5.2': {
     vendor: 'Z.ai',
-    blurb: 'GLM 5.2 from Z.ai. Balanced model for bilingual (Chinese/English) use cases.',
+    blurbKey: 'models.blurb.glm-5-2',
     contextLength: 1048576
   }
 };
@@ -74,7 +76,7 @@ async function fetchJson(url: string): Promise<any> {
   }
 }
 
-export async function getModels(): Promise<ModelInfo[]> {
+export async function getModels(locale: Locale = 'en'): Promise<ModelInfo[]> {
   const [pricingRes, formatsRes] = await Promise.all([
     fetchJson('https://api.apilane.one/api/pricing/public'),
     fetchJson('https://api.apilane.one/api/option/model-formats')
@@ -103,7 +105,7 @@ export async function getModels(): Promise<ModelInfo[]> {
         usdPerCall: usdFromCallPrice(m.call_price),
         formats: formats[m.model_name] || ['openai'],
         vendor: meta.vendor,
-        blurb: meta.blurb,
+        blurb: t(locale, meta.blurbKey),
         contextLength: meta.contextLength
       };
     });
