@@ -60,7 +60,7 @@ The apilane endpoint at https://api.apilane.one/v1 is OpenAI-compatible. Any cod
 
 - apilane does not store or log your prompt content. Request logs record usage for billing only.
 - Responses are passed through unmodified from upstream providers
-- Note: apilane is a gateway. Requests are forwarded to upstream model providers; we cannot control whether those providers retain your prompt data.
+- Note: apilane is a gateway. Requests are forwarded to upstream model providers; we cannot control what those providers do with your prompt data.
 ## Status and Resources
 
 - [Status Page](https://status.apilane.one) — Real-time availability

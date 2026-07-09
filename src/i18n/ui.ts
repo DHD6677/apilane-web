@@ -72,7 +72,7 @@ export const translations = {
   'trust.title': { en: 'Trust & security', zh: '信任与安全' },
   'trust.subtitle': { en: "Low prices don't have to mean shady. Here's exactly what we do and don't do.", zh: '价格低不等于不靠谱。下面是我们做了什么、没做什么，全部说清楚。' },
   'trust.t1_title': { en: 'No prompt logging', zh: '不记 Prompt' },
-  'trust.t1_desc': { en: 'apilane itself does not store or log your prompt content. Requests are forwarded to the upstream model provider - we cannot control whether that provider retains your data.', zh: 'apilane 本身不存储也不记录你的 Prompt 内容。请求会转发给上游模型供应商--我们无法控制上游是否留存你的数据。' },
+  'trust.t1_desc': { en: 'apilane itself does not store or log your prompt content. Requests are forwarded to upstream model providers to get a response - we cannot control what those providers do with your data.', zh: 'apilane 本身不存储也不记录你的 Prompt 内容。请求会转发给上游模型供应商以获取响应--我们无法控制上游如何处理你的数据。' },
   'trust.t2_title': { en: 'Responses passed through unmodified', zh: '响应原样透传' },
   'trust.t2_desc': { en: 'We do not rewrite, filter, or inspect model responses. What the model returns is what you get.', zh: '我们不重写、不过滤、不检查模型响应。模型返回什么，你就收到什么。' },
 
@@ -80,7 +80,7 @@ export const translations = {
   'faq.q1': { en: 'How do you keep prices this low?', zh: '为什么价格能这么低？' },
   'faq.a1': { en: 'We aggregate multiple upstream providers and route calls efficiently, passing the savings to you. Per-call pricing also means you only pay for what you use - no idle capacity fees. Prices run 1/10 to 1/60 of official API rates depending on the model.', zh: '我们聚合多个上游供应商并高效路由调用，把省下的成本让给你。按次计费也意味着只为实际使用付费——没有闲置容量费。价格根据模型不同，是官方 API 的 1/10 至 1/60。' },
   'faq.q2': { en: 'Do you store my prompts?', zh: '你们会存我的 Prompt 吗？' },
-  'faq.a2': { en: 'apilane itself does not store or log your prompt content. However, requests are forwarded to upstream model providers, and we cannot guarantee what those providers do with your data. If prompt privacy is critical, check the upstream provider policy for your chosen model.', zh: 'apilane 本身不存储也不记录你的 Prompt 内容。但请求会转发给上游模型供应商，我们无法保证上游如何处理你的数据。如果 Prompt 隐私对你很关键，请查看所选模型对应的上游供应商隐私政策。' },
+  'faq.a2': { en: 'apilane itself does not store or log your prompt content. Requests are forwarded to upstream model providers to get a response - we cannot guarantee what those providers do with your data. If you are sending sensitive prompts, treat any third-party API the same way and avoid submitting content you would not want forwarded.', zh: 'apilane 本身不存储也不记录你的 Prompt 内容。请求会转发给上游模型供应商以获取响应--我们无法保证上游如何处理你的数据。如果你要发送敏感 Prompt，请像对待任何第三方 API 一样，避免提交你不希望被转发的内容。' },
   'faq.q3': { en: 'How do I pay?', zh: '怎么付费？' },
   'faq.a3': { en: 'Deposit $2, $5, $10, or $20. We accept USDT (TRC20, BSC) via epusdt. No credit card required.', zh: '充值 $2、$5、$10 或 $20。我们通过 epusdt 收 USDT（TRC20、BSC）。无需信用卡。' },
   'faq.q4': { en: 'Is this OpenAI-compatible?', zh: '兼容 OpenAI 吗？' },
