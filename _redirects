@@ -5,3 +5,5 @@
 /zh  /zh/  301
 /models  /en/models  301
 /models/:name  /en/models/:name  301
+/blog  /en/blog  301
+/blog/*  /en/blog/:splat  301

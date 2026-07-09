@@ -1,0 +1,120 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import { locales, useTranslations, localePath, type Locale } from '../../../i18n/utils';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog');
+  const paths = [];
+  for (const locale of locales) {
+    const localePosts = all.filter((p) => p.data.locale === locale);
+    for (const post of localePosts) {
+      paths.push({
+        params: { locale, slug: post.data.slug },
+        props: { id: post.id, locale }
+      });
+    }
+  }
+  return paths;
+}
+
+interface Props { id: string; locale: Locale }
+const { id, locale } = Astro.props;
+const t = useTranslations(locale);
+
+const all = await getCollection('blog');
+const post = all.find((p) => p.id === id);
+if (!post) return Astro.redirect(localePath(locale, 'blog'));
+const { Content } = await render(post);
+
+const title = `${post.data.title} | apilane`;
+const description = post.data.description;
+const blogHref = localePath(locale, 'blog');
+const dateStr = post.data.pubDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const minRead = `${post.data.readingMinutes} ${t('blog.min_read')}`;
+const updated = t('blog.updated_label').replace('{date}', dateStr);
+
+const faqLd = post.data.faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: post.data.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+} : null;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: post.data.pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'apilane' },
+  publisher: { '@type': 'Organization', name: 'apilane' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(localePath(locale, `blog/${post.data.slug}`) + '/', Astro.site ?? 'https://apilane.one').toString() }
+};
+---
+
+<Layout title={title} description={description} locale={locale} path={`blog/${post.data.slug}`}>
+  <Nav locale={locale} path={`blog/${post.data.slug}`} />
+  <main class="flex-1">
+    <article class="mx-auto max-w-3xl px-4 sm:px-6 py-12">
+      <a href={blogHref} class="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-6">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        {t('blog.back')}
+      </a>
+
+      <div class="flex items-center gap-3 text-xs text-zinc-500">
+        <span class="text-emerald-400">{post.data.category}</span>
+        <span>·</span>
+        <span>{minRead}</span>
+      </div>
+      <h1 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50 leading-tight">{post.data.title}</h1>
+      <div class="mt-3 text-xs text-zinc-600">{updated}</div>
+
+      <div class="prose-blog mt-8">
+        <Content />
+      </div>
+
+      {post.data.faq.length > 0 && (
+        <section class="mt-12 border-t border-zinc-800 pt-8">
+          <h2 class="text-xl font-semibold text-zinc-100 mb-4">{t('blog.faq_title')}</h2>
+          <div class="space-y-3">
+            {post.data.faq.map((f) => (
+              <details class="group rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
+                <summary class="cursor-pointer text-sm font-medium text-zinc-200 list-none flex items-start gap-2">
+                  <svg class="h-4 w-4 mt-0.5 text-zinc-500 group-open:rotate-90 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  {f.question}
+                </summary>
+                <p class="mt-3 pl-6 text-sm text-zinc-400 leading-relaxed">{f.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div class="mt-12 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center">
+        <p class="text-zinc-300">{t('blog.cta_text')}</p>
+        <a href="https://api.apilane.one/register" class="mt-4 inline-flex items-center justify-center rounded-md bg-emerald-500 px-6 py-3 text-base font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">{t('blog.cta_button')}</a>
+      </div>
+    </article>
+  </main>
+  <Footer locale={locale} />
+</Layout>
+
+{faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
+<script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+
+<style is:global>
+  .prose-blog h2 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; color: #f4f4f5; }
+  .prose-blog p { margin-top: 1rem; color: #d4d4d8; line-height: 1.75; }
+  .prose-blog ul { margin-top: 1rem; color: #d4d4d8; }
+  .prose-blog li { margin-top: 0.5rem; line-height: 1.75; }
+  .prose-blog strong { color: #f4f4f5; font-weight: 600; }
+  .prose-blog ol { margin-top: 1rem; color: #d4d4d8; }
+  .prose-blog ol li { margin-top: 0.5rem; line-height: 1.75; }
+</style>

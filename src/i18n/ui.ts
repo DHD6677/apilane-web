@@ -11,6 +11,18 @@ export const translations = {
   'nav.faq': { en: 'FAQ', zh: '常见问题' },
   'nav.signin': { en: 'Sign in', zh: '登录' },
   'nav.language': { en: 'Language', zh: '语言' },
+  'nav.blog': { en: 'Blog', zh: '博客' },
+
+  'blog.page_title': { en: 'Blog - apilane', zh: '博客 - apilane' },
+  'blog.description': { en: 'Practical guides on cutting LLM API costs, crypto-friendly providers, and per-call pricing.', zh: '降低 LLM API 成本、加密友好厂商、按次计费的实用指南。' },
+  'blog.h1': { en: 'Blog', zh: '博客' },
+  'blog.intro': { en: 'Numbers-first writing on LLM API costs, pricing models, and provider selection.', zh: '用数字说话，聊 LLM API 成本、计费模式与厂商选择。' },
+  'blog.min_read': { en: 'min read', zh: '分钟阅读' },
+  'blog.updated_label': { en: 'Updated {date}', zh: '更新于 {date}' },
+  'blog.back': { en: 'All posts', zh: '全部文章' },
+  'blog.faq_title': { en: 'FAQ', zh: '常见问题' },
+  'blog.cta_text': { en: 'Ready to ship on a per-call API with crypto payment?', zh: '准备好在支持加密支付的按次计费 API 上线了吗？' },
+  'blog.cta_button': { en: 'Get your API key', zh: '获取你的 API Key' },
 
   'hero.badge': { en: 'Pay per call · Crypto accepted · No subscription', zh: '按次计费 · 支持加密货币 · 无需订阅' },
   'hero.title_before': { en: 'Affordable AI models, ', zh: '高性价比 AI 模型，' },
