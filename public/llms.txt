@@ -29,13 +29,13 @@ apilane is a pay-per-call LLM API gateway for individual developers and small te
 
 ## Available Models (per-call pricing)
 
-- MiniMax-M2.7 — $0.025/call
-- MiniMax-M2.7-highspeed — $0.025/call
-- MiniMax-M3 — $0.075/call
-- kimi-k2.6 — $0.125/call
-- glm-5.2 — $0.150/call
+- MiniMax-M2.7 — $0.0005/call
+- MiniMax-M2.7-highspeed — $0.0005/call
+- MiniMax-M3 — $0.0015/call
+- kimi-k2.6 — $0.0025/call
+- glm-5.2 — $0.0030/call
 
-Prices are 1/100 cent per call (call_price field). Live list at https://api.apilane.one/api/pricing/public.
+Prices are per call. call_price unit is quota; 500,000 quota = $1. Live list at https://api.apilane.one/api/pricing/public.
 
 ## Pricing Tiers
 

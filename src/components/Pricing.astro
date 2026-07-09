@@ -9,7 +9,7 @@ const fallback = [
   { model_name: 'glm-5.2', call_price: 1500 }
 ];
 
-const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
+const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
 ---
 
 <section id="pricing" class="scroll-mt-16">
@@ -41,7 +41,7 @@ const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
     </div>
 
     <div class="mt-4 flex items-center justify-between text-xs text-zinc-500">
-      <span>call_price unit: 1/100 cent. 250 = $0.025/call.</span>
+      <span>call_price unit: quota. 500,000 quota = $1, so 250 = $0.0005/call.</span>
       <span id="pricing-status" class="inline-flex items-center gap-1.5">
         <span class="h-1.5 w-1.5 rounded-full bg-zinc-600"></span>
         loading…
@@ -57,7 +57,7 @@ const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
 <script>
   const tbody = document.getElementById('pricing-body');
   const status = document.getElementById('pricing-status');
-  const fmt = (p: number) => `$${(p / 10000).toFixed(3)}/call`;
+  const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
 
   const render = (rows) => {
     if (!tbody) return;
