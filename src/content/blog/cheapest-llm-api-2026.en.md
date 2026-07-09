@@ -59,8 +59,7 @@ A practical filter: if a provider isn't OpenAI-compatible (and ideally also acce
 2. **Compute cost per 1,000 calls**, not per million tokens. That's the unit your product actually consumes.
 3. **Include payment friction.** Minimum deposits and card requirements are real costs, especially for small teams and solo builders.
 4. **Demand OpenAI compatibility.** If it's not drop-in, it's not cheap.
-5. **Check the privacy model.** The cheapest provider that logs your prompts may cost you far more in a different way. Look for no-prompt-storage and keys-in-memory-only.
 
 ## The bottom line
 
-The cheapest LLM API in 2026 is rarely the one with the lowest headline number. It's the one that matches your workload shape (per-call for short frequent requests), accepts crypto to strip payment overhead, is OpenAI-compatible so you pay zero migration cost, and doesn't quietly store your data. Per-call providers running at roughly 1/10 to 1/60 of official rates, with a $2 minimum deposit, are where the real savings are — not because the number is small, but because the unit is predictable.
+The cheapest LLM API in 2026 is rarely the one with the lowest headline number. It's the one that matches your workload shape (per-call for short frequent requests), accepts crypto to strip payment overhead, and is OpenAI-compatible so you pay zero migration cost. Per-call providers running at roughly 1/10 to 1/60 of official rates, with a $2 minimum deposit, are where the real savings are - not because the number is small, but because the unit is predictable.
