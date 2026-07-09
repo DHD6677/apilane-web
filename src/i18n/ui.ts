@@ -13,9 +13,9 @@ export const translations = {
   'nav.language': { en: 'Language', zh: '语言' },
 
   'hero.badge': { en: 'Pay per call · Crypto accepted · No subscription', zh: '按次计费 · 支持加密货币 · 无需订阅' },
-  'hero.title_before': { en: 'The cheapest way to call ', zh: '' },
-  'hero.title_highlight': { en: 'frontier AI models', zh: '最便宜的方式' },
-  'hero.title_after': { en: '', zh: '调用前沿 AI 模型' },
+  'hero.title_before': { en: 'Affordable AI models, ', zh: '高性价比 AI 模型，' },
+  'hero.title_highlight': { en: 'pay per call', zh: '按次计费' },
+  'hero.title_after': { en: '', zh: '' },
   'hero.subtitle': { en: 'Tested models, pay per call from $2. Crypto accepted. OpenAI-compatible - change your base_url and ship.', zh: '实测可用模型，按次计费，$2 起充。支持加密货币，兼容 OpenAI——改个 base_url 即可上线。' },
   'hero.cta_primary': { en: 'Get API key', zh: '获取 API Key' },
   'hero.cta_secondary': { en: 'View pricing', zh: '查看定价' },
@@ -58,7 +58,7 @@ export const translations = {
   'code.curl': { en: 'curl', zh: 'curl' },
 
   'trust.title': { en: 'Trust & security', zh: '信任与安全' },
-  'trust.subtitle': { en: "Cheap doesn't have to mean shady. Here's exactly what we do and don't do with your data.", zh: '便宜不等于不靠谱。下面是我们对数据做了什么、没做什么，全部说清楚。' },
+  'trust.subtitle': { en: "Low prices don't have to mean shady. Here's exactly what we do and don't do with your data.", zh: '价格低不等于不靠谱。下面是我们对数据做了什么、没做什么，全部说清楚。' },
   'trust.t1_title': { en: 'No prompt storage', zh: '不存 Prompt' },
   'trust.t1_desc': { en: 'Requests are forwarded to upstream and discarded immediately. We never store your prompt content.', zh: '请求转发给上游后立即丢弃。我们绝不存储你的 Prompt 内容。' },
   'trust.t2_title': { en: 'API keys stay in memory', zh: 'API Key 仅存内存' },
@@ -71,7 +71,7 @@ export const translations = {
   'trust.t5_desc': { en: 'Traffic terminates at Cloudflare Tunnel; our origin server IP is never published. DDoS protection and CDN come standard.', zh: '流量在 Cloudflare Tunnel 终止；我们的源站 IP 从不公开。自带 DDoS 防护和 CDN。' },
 
   'faq.title': { en: 'FAQ', zh: '常见问题' },
-  'faq.q1': { en: 'How is this so cheap?', zh: '为什么这么便宜？' },
+  'faq.q1': { en: 'How do you keep prices this low?', zh: '为什么价格能这么低？' },
   'faq.a1': { en: 'We aggregate multiple upstream providers and route calls efficiently, passing the savings to you. Per-call pricing also means you only pay for what you use - no idle capacity fees. Prices run 1/10 to 1/60 of official API rates depending on the model.', zh: '我们聚合多个上游供应商并高效路由调用，把省下的成本让给你。按次计费也意味着只为实际使用付费——没有闲置容量费。价格根据模型不同，是官方 API 的 1/10 至 1/60。' },
   'faq.q2': { en: 'Do you store my prompts?', zh: '你们会存我的 Prompt 吗？' },
   'faq.a2': { en: 'No. Prompts are forwarded to the upstream model and discarded immediately. API keys are held in memory for routing only - never written to disk, never logged.', zh: '不会。Prompt 转发给上游模型后立即丢弃。API Key 仅存于内存用于路由——绝不写入磁盘、绝不记录。' },

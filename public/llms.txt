@@ -1,25 +1,25 @@
 # apilane — Affordable AI API for Coders
 
-> The cheapest way to call frontier AI models.
-> Pay per call from $2. Tested models at 1/10 to 1/60 of official prices.
+> Affordable AI models, pay per call.
+> Tested models at 1/10 to 1/60 of official prices. $2 minimum deposit.
 > Crypto accepted (USDT/BTC). No subscriptions, no hidden fees, no data storage.
 
 ## Overview
 
-apilane is a pay-per-call LLM API gateway for individual developers and small teams. We list only frontier models we have actually tested, with flat per-call pricing at 1/10 to 1/60 of official rates. Crypto payment (USDT/BTC) and a $2 minimum deposit.
+apilane is a pay-per-call LLM API gateway for individual developers and small teams. We list only tested models, with flat per-call pricing at 1/10 to 1/60 of official rates. Crypto payment (USDT/BTC) and a $2 minimum deposit.
 
 ## Core Services
 
-- [Pricing](https://apilane.one/#pricing) — Per-call prices, fetched live from the public API
-- [Features](https://apilane.one/#features) — Pay per call, crypto payment, OpenAI-compatible, no data storage
-- [FAQ](https://apilane.one/#faq) — How it works, how we keep prices low
+- [Pricing](https://apilane.one/en/#pricing) — Per-call prices, fetched live from the public API
+- [Features](https://apilane.one/en/#features) — Pay per call, crypto payment, OpenAI-compatible, no data storage
+- [FAQ](https://apilane.one/en/#faq) — How it works, how we keep prices low
 - [Console](https://api.apilane.one) - Sign up, get an API key, top up
 - [API Endpoint](https://api.apilane.one/v1) — OpenAI-compatible
 - [Status](https://status.apilane.one) — Live availability
 
 ## Key Differentiators
 
-- $2 minimum deposit (lowest in the LLM gateway market)
+- $2 minimum deposit - test the API with real calls
 - Crypto payment: USDT (TRC20, BSC, ERC20) and BTC via self-hosted BTCPay Server
 - 1/10 to 1/60 of official API prices, depending on the model
 - OpenAI-compatible endpoint at https://api.apilane.one/v1 — zero migration cost
