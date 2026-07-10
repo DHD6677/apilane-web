@@ -11,7 +11,7 @@ interface Props {
 
 const { locale, path = '', showAnchors = false } = Astro.props;
 const t = useTranslations(locale);
-const appUrl = 'https://api.apilane.one/login';
+const appUrl = `https://api.apilane.one/login?lang=${locale}`;
 const dashboardUrl = 'https://api.apilane.one/dashboard';
 const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
 const modelsHref = localePath(locale, 'models');
