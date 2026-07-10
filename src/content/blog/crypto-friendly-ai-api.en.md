@@ -80,7 +80,7 @@ Here is something to be upfront about: crypto deposits are generally not refunda
 
 This is not a policy quirk—it is a fundamental property of blockchain transactions. No provider can "undo" an on-chain transfer.
 
-The practical solution is simple: **deposit only what you plan to use soon.** On apilane, the minimum top-up is $2, which is enough for over 1,300 calls on the most affordable model. There is no pressure to deposit more than you need.
+The practical solution is simple: **deposit only what you plan to use soon.** On apilane, the minimum top-up is $2, which is enough for over 1,300 calls on MiniMax-M3. There is no pressure to deposit more than you need.
 
 Some tips for managing your balance:
 
