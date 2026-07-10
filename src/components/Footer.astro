@@ -8,6 +8,9 @@ const t = useTranslations(locale);
 const year = new Date().getFullYear();
 const modelsHref = localePath(locale, 'models');
 const blogHref = localePath(locale, 'blog');
+const pricingHref = localePath(locale, 'pricing');
+const docsHref = localePath(locale, 'docs/quickstart');
+const securityHref = localePath(locale, 'security');
 ---
 
 <footer class="border-t border-zinc-800/80 bg-zinc-950">
@@ -19,14 +22,10 @@ const blogHref = localePath(locale, 'blog');
       </a>
       <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-400">
         <a href={modelsHref} class="hover:text-zinc-100 transition-colors">{t('nav.models')}</a>
+        <a href={pricingHref} class="hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
         <a href={blogHref} class="hover:text-zinc-100 transition-colors">{t('nav.blog')}</a>
-        {showAnchors && (
-          <>
-            <a href="#pricing" class="hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
-            <a href="#features" class="hover:text-zinc-100 transition-colors">{t('nav.features')}</a>
-            <a href="#faq" class="hover:text-zinc-100 transition-colors">{t('nav.faq')}</a>
-          </>
-        )}
+        <a href={docsHref} class="hover:text-zinc-100 transition-colors">{t('nav.docs')}</a>
+        <a href={securityHref} class="hover:text-zinc-100 transition-colors">{t('nav.security')}</a>
         <a href="https://api.apilane.one" class="hover:text-zinc-100 transition-colors">{t('footer.console')}</a>
         <a href="https://stats.uptimerobot.com/eHPmpHnXoV" class="hover:text-zinc-100 transition-colors">{t('footer.status')}</a>
         <a href="https://github.com/apilane" class="hover:text-zinc-100 transition-colors">GitHub</a>

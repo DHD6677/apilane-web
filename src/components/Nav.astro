@@ -15,6 +15,7 @@ const appUrl = 'https://api.apilane.one/login';
 const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
 const modelsHref = localePath(locale, 'models');
 const blogHref = localePath(locale, 'blog');
+const pricingHref = localePath(locale, 'pricing');
 ---
 
 <nav class="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur">
@@ -26,6 +27,7 @@ const blogHref = localePath(locale, 'blog');
       </a>
       <div class="flex items-center gap-3 sm:gap-6">
         <a href={modelsHref} class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.models')}</a>
+        <a href={pricingHref} class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.pricing')}</a>
         <a href={blogHref} class="hidden sm:inline text-sm text-zinc-400 hover:text-zinc-100 transition-colors">{t('nav.blog')}</a>
         {showAnchors && (
           <>

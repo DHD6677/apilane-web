@@ -7,3 +7,7 @@
 /models/:name  /en/models/:name  301
 /blog  /en/blog  301
 /blog/*  /en/blog/:splat  301
+/pricing  /en/pricing  301
+/docs  /en/docs/quickstart  301
+/docs/*  /en/docs/:splat  301
+/security  /en/security  301

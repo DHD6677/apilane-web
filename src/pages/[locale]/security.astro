@@ -1,0 +1,172 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { locales, useTranslations, type Locale } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const title = locale === 'zh' ? '安全与隐私 - apilane' : 'Security & Privacy - apilane';
+const description = locale === 'zh'
+  ? 'apilane 如何处理你的 API Key、Prompt 和请求日志。我们只承诺自己能控制的事。'
+  : 'How apilane handles your API key, prompts, and request logs. We only promise what we can control.';
+const path = 'security';
+const ogImage = '/images/pages/security-hero.jpg';
+
+const sections = locale === 'zh' ? [
+  {
+    title: 'API Key 管理',
+    icon: 'key',
+    body: '你的 API Key 用于路由和计费。你可以在控制台随时创建、禁用或删除 Key。删除后该 Key 立即失效，未完成的请求会失败。'
+  },
+  {
+    title: '请求日志',
+    icon: 'log',
+    body: 'apilane 记录每次调用的模型名、调用时间、消耗的 quota 和 Key 标识，用于计费和用量统计。我们不记录 Prompt 内容，也不记录模型返回的响应内容。'
+  },
+  {
+    title: 'Prompt 转发',
+    icon: 'forward',
+    body: 'apilane 是 API 网关：你的请求会原样转发给上游模型供应商，再把响应原样返回。我们无法控制上游供应商是否存储或处理你的 Prompt。如果你要发送敏感信息，请自行评估风险。'
+  },
+  {
+    title: '响应透传',
+    icon: 'shield',
+    body: '我们不重写、不过滤、不检查模型返回的内容。模型返回什么，你就收到什么。'
+  }
+] : [
+  {
+    title: 'API key management',
+    icon: 'key',
+    body: 'Your API key is used for routing and billing. You can create, disable, or delete keys from the console at any time. Deleted keys stop working immediately and in-flight requests fail.'
+  },
+  {
+    title: 'Request logs',
+    icon: 'log',
+    body: 'apilane logs each call model name, timestamp, quota consumed, and key identifier for billing and usage statistics. We do not log prompt content or model response content.'
+  },
+  {
+    title: 'Prompt forwarding',
+    icon: 'forward',
+    body: 'apilane is an API gateway: your request is forwarded to upstream model providers and the response is returned unchanged. We cannot control whether those providers store or process your prompts. Evaluate risk before sending sensitive information.'
+  },
+  {
+    title: 'Response passthrough',
+    icon: 'shield',
+    body: 'We do not rewrite, filter, or inspect model responses. What the model returns is what you receive.'
+  }
+];
+
+const faqs = locale === 'zh' ? [
+  { q: 'apilane 会存我的 Prompt 吗？', a: '不会。apilane 本身不存储也不记录 Prompt 内容。但请求会转发给上游模型供应商，我们无法保证上游是否留存。' },
+  { q: 'apilane 会存我的 API Key 吗？', a: 'API Key 必须被系统识别才能路由和计费，因此会以加密形式存储。你可以在控制台随时删除。' },
+  { q: '失败请求会扣费吗？', a: '不会。只有上游成功返回响应的调用才会扣费。网络超时、HTTP 错误等失败调用不扣费。' },
+  { q: '如何保护自己的数据？', a: '避免在 Prompt 中提交你不希望被第三方 API 看到的敏感信息；定期轮换或删除不再使用的 API Key。' }
+] : [
+  { q: 'Does apilane store my prompts?', a: 'No. apilane itself does not store or log prompt content. However, requests are forwarded to upstream model providers and we cannot guarantee what those providers do.' },
+  { q: 'Does apilane store my API key?', a: 'API keys must be stored in an encrypted form so the system can route and bill requests. You can delete them from the console at any time.' },
+  { q: 'Am I charged for failed requests?', a: 'No. You are only charged for calls where the upstream returns a successful response. Network timeouts and HTTP errors are not charged.' },
+  { q: 'How can I protect my data?', a: 'Avoid submitting sensitive information in prompts that you would not want a third-party API to see. Rotate or delete unused API keys regularly.' }
+];
+
+const iconSvg = (name: string) => {
+  const paths: Record<string, string> = {
+    key: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
+    log: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    forward: 'M13 5l7 7-7 7M5 5l7 7-7 7',
+    shield: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
+  };
+  return paths[name] || paths.shield;
+};
+---
+
+<Layout title={title} description={description} locale={locale} path={path} ogImage={ogImage}>
+  <Nav locale={locale} />
+  <main class="flex-1">
+    <section class="border-b border-zinc-800/80">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-20">
+        <div class="grid gap-10 lg:grid-cols-2 items-center">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-50">{locale === 'zh' ? '安全与隐私' : 'Security & Privacy'}</h1>
+            <p class="mt-5 text-lg text-zinc-400">
+              {locale === 'zh'
+                ? '我们只承诺自己能控制的事。下面的每一点都是 apilane 系统实际运行的方式。'
+                : 'We only promise what we can control. Every statement below reflects how the apilane system actually runs.'}
+            </p>
+          </div>
+          <div class="rounded-2xl border border-zinc-800 overflow-hidden">
+            <img src={ogImage} alt={title} class="w-full h-64 object-cover" loading="eager" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <div class="grid gap-6 sm:grid-cols-2">
+          {sections.map((s) => (
+            <div class="rounded-xl border border-zinc-800 bg-zinc-900/30 p-6">
+              <div class="text-emerald-400 mb-4">
+                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={iconSvg(s.icon)} />
+                </svg>
+              </div>
+              <h2 class="text-xl font-semibold text-zinc-100 mb-3">{s.title}</h2>
+              <p class="text-sm text-zinc-400 leading-relaxed">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-zinc-800/80 bg-zinc-900/30">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50 mb-8">FAQ</h2>
+        <div class="grid gap-4 max-w-3xl">
+          {faqs.map((item) => (
+            <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-5">
+              <h3 class="font-semibold text-zinc-100">{item.q}</h3>
+              <p class="mt-2 text-sm text-zinc-400">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50">{locale === 'zh' ? '还有疑问？' : 'Still have questions?'}</h2>
+        <p class="mt-3 text-zinc-400">
+          {locale === 'zh'
+            ? '查看状态页或发送邮件至 support@apilane.one。'
+            : 'Check the status page or email support@apilane.one.'}
+        </p>
+        <div class="mt-6 flex items-center justify-center gap-4">
+          <a href="https://stats.uptimerobot.com/eHPmpHnXoV" class="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-100 hover:border-zinc-600 transition-colors">
+            {t('footer.status')}
+          </a>
+          <a href="mailto:support@apilane.one" class="inline-flex items-center rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400 transition-colors">
+            {locale === 'zh' ? '联系支持' : 'Contact support'}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer locale={locale} />
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a }
+  }))
+})} />

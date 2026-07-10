@@ -12,6 +12,8 @@ export const translations = {
   'nav.signin': { en: 'Sign in', zh: '登录' },
   'nav.language': { en: 'Language', zh: '语言' },
   'nav.blog': { en: 'Blog', zh: '博客' },
+  'nav.docs': { en: 'Docs', zh: '文档' },
+  'nav.security': { en: 'Security', zh: '安全' },
 
   'blog.page_title': { en: 'Blog - apilane', zh: '博客 - apilane' },
   'blog.description': { en: 'Practical guides on cutting LLM API costs, crypto-friendly providers, and per-call pricing.', zh: '降低 LLM API 成本、加密友好厂商、按次计费的实用指南。' },

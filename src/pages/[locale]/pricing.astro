@@ -1,0 +1,230 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { locales, useTranslations, localePath, type Locale } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const title = locale === 'zh' ? '定价 - apilane' : 'Pricing - apilane';
+const description = locale === 'zh'
+  ? 'apilane 按次计费价格表。500,000 quota = $1，$2 起充，支持 USDT（TRC20/BSC）。'
+  : 'apilane per-call pricing table. 500,000 quota = $1, deposit from $2, USDT (TRC20/BSC) accepted.';
+const path = 'pricing';
+const ogImage = '/images/pages/pricing-hero.jpg';
+
+const fallback = [
+  { model_name: 'MiniMax-M2.7', call_price: 250 },
+  { model_name: 'MiniMax-M2.7-highspeed', call_price: 250 },
+  { model_name: 'MiniMax-M3', call_price: 750 },
+  { model_name: 'kimi-k2.6', call_price: 1250 },
+  { model_name: 'glm-5.2', call_price: 1500 }
+];
+
+const fmt = (p: number) => `$${(p / 500000).toFixed(5)}/call`;
+const modelsHref = localePath(locale, 'models');
+const signupHref = 'https://api.apilane.one/register';
+
+const i18nStatus = JSON.stringify({
+  live: t('pricing.status_live'),
+  offline: t('pricing.status_offline')
+});
+
+const faqs = [
+  { q: t('faq.q1'), a: t('faq.a1') },
+  { q: t('faq.q2'), a: t('faq.a2') },
+  { q: t('faq.q3'), a: t('faq.a3') },
+  { q: t('faq.q4'), a: t('faq.a4') },
+  { q: t('faq.q5'), a: t('faq.a5') }
+];
+---
+
+<Layout title={title} description={description} locale={locale} path={path} ogImage={ogImage}>
+  <Nav locale={locale} />
+  <main class="flex-1">
+    <section class="border-b border-zinc-800/80">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-20">
+        <div class="grid gap-10 lg:grid-cols-2 items-center">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-50">{locale === 'zh' ? '透明定价，按次计费' : 'Transparent per-call pricing'}</h1>
+            <p class="mt-5 text-lg text-zinc-400">
+              {locale === 'zh'
+                ? '每次调用固定扣费，没有 Token 数学，没有订阅费。下面价格实时从 api.apilane.one 拉取。'
+                : 'One flat fee per call. No token math, no subscription. Prices below are fetched live from api.apilane.one.'}
+            </p>
+          </div>
+          <div class="rounded-2xl border border-zinc-800 overflow-hidden">
+            <img src={ogImage} alt={title} class="w-full h-64 object-cover" loading="eager" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <div class="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40">
+          <table class="w-full text-left">
+            <thead class="border-b border-zinc-800 bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-500">
+              <tr>
+                <th class="px-4 sm:px-6 py-3 font-medium">{t('pricing.col_model')}</th>
+                <th class="px-4 sm:px-6 py-3 font-medium text-right">{t('pricing.col_price')}</th>
+              </tr>
+            </thead>
+            <tbody id="pricing-body" class="divide-y divide-zinc-800/80">
+              {fallback.map((m) => (
+                <tr class="hover:bg-zinc-900/60">
+                  <td class="px-4 sm:px-6 py-3 font-mono text-sm text-zinc-200">{m.model_name}</td>
+                  <td class="px-4 sm:px-6 py-3 text-right text-sm font-semibold text-emerald-400">{fmt(m.call_price)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 flex items-center justify-between text-xs text-zinc-500">
+          <span>{t('pricing.unit_note')}</span>
+          <span id="pricing-status" class="inline-flex items-center gap-1.5" data-i18n={i18nStatus}>
+            <span class="h-1.5 w-1.5 rounded-full bg-zinc-600"></span>
+            {t('pricing.status_loading')}
+          </span>
+        </div>
+        <p class="mt-6 text-sm text-zinc-500 max-w-2xl">
+          {t('pricing.note')}
+        </p>
+        <p class="mt-4">
+          <a href={modelsHref} class="inline-flex items-center gap-1 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
+            {t('pricing.browse_all')}
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <section class="border-y border-zinc-800/80 bg-zinc-900/30">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50 mb-8">{locale === 'zh' ? '计费方式' : 'How billing works'}</h2>
+        <div class="grid gap-6 sm:grid-cols-3">
+          <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-6">
+            <div class="text-emerald-400 mb-3">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-semibold text-zinc-100 mb-2">{locale === 'zh' ? '按次扣费' : 'Per-call deduction'}</h3>
+            <p class="text-sm text-zinc-400">
+              {locale === 'zh'
+                ? '每次成功调用按 model 对应的 call_price 扣 quota。500,000 quota = $1。'
+                : 'Every successful call deducts the model call_price in quota. 500,000 quota = $1.'}
+            </p>
+          </div>
+          <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-6">
+            <div class="text-emerald-400 mb-3">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-semibold text-zinc-100 mb-2">{locale === 'zh' ? '按需充值' : 'Top up as needed'}</h3>
+            <p class="text-sm text-zinc-400">
+              {locale === 'zh'
+                ? '$2 / $5 / $10 / $20 四档。USDT（TRC20、BSC）通过 epusdt 充值，无需信用卡。'
+                : '$2 / $5 / $10 / $20 tiers. Top up with USDT (TRC20, BSC) via epusdt. No credit card required.'}
+            </p>
+          </div>
+          <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-6">
+            <div class="text-emerald-400 mb-3">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+            </div>
+            <h3 class="font-semibold text-zinc-100 mb-2">{locale === 'zh' ? '失败不扣费' : 'Failed calls are free'}</h3>
+            <p class="text-sm text-zinc-400">
+              {locale === 'zh'
+                ? '上游返回错误、超时或网络异常时，该次调用不扣费。'
+                : 'No charge when upstream returns an error, times out, or the network fails.'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-50 mb-8">FAQ</h2>
+        <div class="grid gap-4 max-w-3xl">
+          {faqs.map((item) => (
+            <div class="rounded-xl border border-zinc-800 bg-zinc-900/30 p-5">
+              <h3 class="font-semibold text-zinc-100">{item.q}</h3>
+              <p class="mt-2 text-sm text-zinc-400">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-zinc-800/80 bg-zinc-900/30">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-16 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-50">{t('finalcta.title')}</h2>
+        <p class="mt-3 text-zinc-400">{t('finalcta.subtitle')}</p>
+        <a href={signupHref} class="mt-8 inline-flex items-center rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors">
+          {t('finalcta.cta')}
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer locale={locale} />
+</Layout>
+
+<script define:vars={{ i18nStatus }}>
+  const tbody = document.getElementById('pricing-body');
+  const status = document.getElementById('pricing-status');
+  const fmt = (p) => `$${(p / 500000).toFixed(5)}/call`;
+
+  const render = (rows) => {
+    if (!tbody) return;
+    tbody.innerHTML = rows
+      .map(
+        (m) =>
+          `<tr class="hover:bg-zinc-900/60"><td class="px-4 sm:px-6 py-3 font-mono text-sm text-zinc-200">${m.model_name}</td><td class="px-4 sm:px-6 py-3 text-right text-sm font-semibold text-emerald-400">${fmt(m.call_price)}</td></tr>`
+      )
+      .join('');
+  };
+
+  const markLive = () => {
+    if (!status) return;
+    status.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>${i18nStatus.live}`;
+  };
+  const markFallback = () => {
+    if (!status) return;
+    status.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>${i18nStatus.offline}`;
+  };
+
+  try {
+    fetch('https://api.apilane.one/api/pricing/public')
+      .then((r) => r.json())
+      .then((data) => {
+        const rows = (data && Array.isArray(data.data) ? data.data : []).filter(
+          (m) => m && typeof m.model_name === 'string' && typeof m.call_price === 'number'
+        );
+        if (rows.length > 0) {
+          render(rows);
+          markLive();
+        } else {
+          markFallback();
+        }
+      })
+      .catch(() => {
+        markFallback();
+      });
+  } catch {
+    markFallback();
+  }
+</script>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a }
+  }))
+})} />
