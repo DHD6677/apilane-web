@@ -10,6 +10,7 @@ export const translations = {
   'nav.features': { en: 'Features', zh: '特性' },
   'nav.faq': { en: 'FAQ', zh: '常见问题' },
   'nav.signin': { en: 'Sign in', zh: '登录' },
+  'nav.dashboard': { en: 'Dashboard', zh: '控制台' },
   'nav.language': { en: 'Language', zh: '语言' },
   'nav.blog': { en: 'Blog', zh: '博客' },
   'nav.docs': { en: 'Docs', zh: '文档' },

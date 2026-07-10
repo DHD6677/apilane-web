@@ -12,10 +12,13 @@ interface Props {
 const { locale, path = '', showAnchors = false } = Astro.props;
 const t = useTranslations(locale);
 const appUrl = 'https://api.apilane.one/login';
+const dashboardUrl = 'https://api.apilane.one/dashboard';
 const clean = path.replace(/^\/+/, '').replace(/\/+$/, '');
 const modelsHref = localePath(locale, 'models');
 const blogHref = localePath(locale, 'blog');
 const pricingHref = localePath(locale, 'pricing');
+const signinLabel = t('nav.signin');
+const dashboardLabel = t('nav.dashboard');
 ---
 
 <nav class="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur">
@@ -37,10 +40,34 @@ const pricingHref = localePath(locale, 'pricing');
           </>
         )}
         <LanguageSwitcher locale={locale} path={clean} />
-        <a href={appUrl} class="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors">
-          {t('nav.signin')}
+        <a
+          id="nav-auth-btn"
+          href={appUrl}
+          class="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:border-zinc-600 hover:bg-zinc-800 transition-colors"
+        >
+          {signinLabel}
         </a>
       </div>
     </div>
   </div>
 </nav>
+
+<script is:inline define:vars={{ dashboardUrl, dashboardLabel }}>
+  (async () => {
+    try {
+      const res = await fetch('https://api.apilane.one/api/user/self', {
+        credentials: 'include',
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.data) {
+          const btn = document.getElementById('nav-auth-btn');
+          if (btn) {
+            btn.href = dashboardUrl;
+            btn.textContent = dashboardLabel;
+          }
+        }
+      }
+    } catch (e) {}
+  })();
+</script>
