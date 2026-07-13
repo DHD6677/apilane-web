@@ -42,7 +42,12 @@ const META: Record<string, ModelMeta> = {
     vendor: 'Z.ai',
     blurbKey: 'models.blurb.glm-5-2',
     contextLength: 1048576
-  }
+ },
+ 'deepseek-v4-pro': {
+   vendor: 'DeepSeek',
+   blurbKey: 'models.blurb.deepseek-v4-pro',
+   contextLength: 128000
+ }
 };
 
 const FALLBACK_PRICING = [
@@ -50,7 +55,8 @@ const FALLBACK_PRICING = [
   { model_name: 'MiniMax-M2.7-highspeed', call_price: 250, group: 'Callcount' },
   { model_name: 'MiniMax-M3', call_price: 750, group: 'Callcount' },
   { model_name: 'kimi-k2.6', call_price: 1250, group: 'Callcount' },
-  { model_name: 'glm-5.2', call_price: 1500, group: 'Callcount' }
+  { model_name: 'glm-5.2', call_price: 1500, group: 'Callcount' },
+  { model_name: 'deepseek-v4-pro', call_price: 750, group: 'Callcount' }
 ];
 
 const FALLBACK_FORMATS: Record<string, string[]> = {
@@ -58,7 +64,8 @@ const FALLBACK_FORMATS: Record<string, string[]> = {
   'MiniMax-M2.7-highspeed': ['openai', 'anthropic'],
   'MiniMax-M3': ['openai', 'anthropic'],
   'kimi-k2.6': ['openai', 'anthropic'],
-  'glm-5.2': ['openai', 'anthropic']
+  'glm-5.2': ['openai', 'anthropic'],
+  'deepseek-v4-pro': ['openai', 'anthropic']
 };
 
 const slugify = (name: string) =>

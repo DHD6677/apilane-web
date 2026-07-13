@@ -125,7 +125,8 @@ export const translations = {
   'models.blurb.minimax-m2-7-highspeed': { en: 'High-speed variant of MiniMax M2.7 with lower latency, same capability.', zh: 'MiniMax M2.7 的高速版本，延迟更低，能力相同。' },
   'models.blurb.minimax-m3': { en: 'MiniMax flagship model. Stronger reasoning and coding for harder tasks.', zh: 'MiniMax 旗舰模型。推理和编码更强，适合更难的任务。' },
   'models.blurb.kimi-k2-6': { en: 'Kimi K2.6 from Moonshot AI. Long-context model good for document-heavy workflows.', zh: '月之暗面 Kimi K2.6。长上下文模型，适合文档密集型工作流。' },
-  'models.blurb.glm-5-2': { en: 'GLM 5.2 from Z.ai. Balanced model for bilingual (Chinese/English) use cases.', zh: 'Z.ai 的 GLM 5.2。均衡模型，适合中英双语场景。' }
+ 'models.blurb.glm-5-2': { en: 'GLM 5.2 from Z.ai. Balanced model for bilingual (Chinese/English) use cases.', zh: 'Z.ai 的 GLM 5.2。均衡模型，适合中英双语场景。' },
+ 'models.blurb.deepseek-v4-pro': { en: 'DeepSeek V4 Pro. Solid reasoning and coding model for general development tasks.', zh: 'DeepSeek V4 Pro。推理与编码扎实，适合一般开发任务。' }
 } as const;
 
 export type TranslationKey = keyof typeof translations;
